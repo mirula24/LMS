@@ -1,4 +1,4 @@
-package amirulschool.lms.utils;
+package amirulschool.lms.utils.page;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

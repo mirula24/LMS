@@ -1,4 +1,4 @@
-package amirulschool.lms.utils;
+package amirulschool.lms.utils.page;
 
 import lombok.Getter;
 import lombok.Setter;

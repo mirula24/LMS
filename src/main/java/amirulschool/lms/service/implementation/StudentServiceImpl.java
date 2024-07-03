@@ -3,8 +3,10 @@ package amirulschool.lms.service.implementation;
 import amirulschool.lms.model.Student;
 import amirulschool.lms.repository.StudentRepository;
 import amirulschool.lms.service.StudentService;
+import amirulschool.lms.utils.DTO.StudentDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,10 +17,14 @@ import java.util.List;
 public class StudentServiceImpl implements StudentService {
     private final StudentRepository studentRepository;
     @Override
-    public Student save(Student student) {
+    public Student save(StudentDTO student) {
         String prefixNIM = student.getName()+student.getBirthDate();
-        student.setNim(prefixNIM);
-        return studentRepository.save(student);
+        Student studentEntity = Student.builder()
+                .name(student.getName())
+                .nim(prefixNIM)
+                .birthDate(student.getBirthDate())
+                .build();
+        return studentRepository.save(studentEntity);
     }
 
     @Override
@@ -28,7 +34,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Student findOne(Integer id) {
-        return studentRepository.findById(id).orElse(null);
+        return studentRepository.findById(id).orElseThrow(()->new RuntimeException("Student with id " + id +" not exist"));
     }
 
     @Override

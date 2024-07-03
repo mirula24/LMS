@@ -4,18 +4,24 @@ package amirulschool.lms.service.implementation;
 import amirulschool.lms.model.Teacher;
 import amirulschool.lms.repository.TeacherRepository;
 import amirulschool.lms.service.TeacherService;
+import amirulschool.lms.utils.DTO.TeacherDTO;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class TeacherServiceImpl implements TeacherService {
     private final TeacherRepository teacherRepository;
     @Override
-    public Teacher createTeacher(Teacher teacher) {
-        return teacherRepository.save(teacher);
+    public Teacher createTeacher(TeacherDTO teacher) {
+        Teacher newTeacher = Teacher.builder()
+                .name(teacher.getName())
+                .birthDate(teacher.getBirthDate().toString())
+                .build();
+        return teacherRepository.save(newTeacher);
+
     }
 
     @Override
@@ -24,8 +30,8 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public List<Teacher> getAllTeachers() {
-        return teacherRepository.findAll();
+    public Page<Teacher> getAllTeachers(Pageable pageable) {
+        return teacherRepository.findAll(pageable);
     }
 
     @Override
