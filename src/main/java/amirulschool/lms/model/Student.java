@@ -23,5 +23,6 @@ public class Student {
     @NotBlank
     @Column(name = "birth_date")
     @JsonFormat(pattern = "yyyy-MM-dd")
+    @Temporal(TemporalType.DATE)
     private Date birthDate;
 }

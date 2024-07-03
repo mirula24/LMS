@@ -20,5 +20,6 @@ private String name;
 
 @Column(name = "birth_date")
 @JsonFormat(pattern = "yyyy-MM-dd")
+@Temporal(TemporalType.DATE)
 private String birthDate;
 }
